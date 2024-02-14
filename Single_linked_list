@@ -1,0 +1,102 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+//Declare and defining the node
+class node{
+    public:
+        int data;
+        node* next;
+    node(int data){
+        this ->data = data;
+        this ->next = NULL;
+    }
+};
+
+//insertion into the beginning at the linked list
+void insertAthead(node* &head,int d){
+    node* temp = new node(d);
+    temp -> next = head;
+    head = temp;
+
+}
+
+//insertion at the end of the linked list
+void insertAttail(node* &tail,int d){
+    node* temp = new node(d);
+    tail -> next = temp;
+    tail = temp;
+}
+
+//insertion at any position of the linked list
+void insertAtPosition(node* &head, node* &tail, int position, int d){
+    
+    //inserting node at the head
+    if(position == 1){
+        insertAthead(head, d);
+        return;
+    }
+    
+    //inserting node at the middle
+    node* temp = head;
+    int cnt = 1;
+
+    //travers upto the position
+    while(cnt < position-1){
+        temp = temp -> next;
+        cnt ++;
+    }
+
+     //inserting node at tail
+     if(temp -> next == NULL){
+        insertAttail(tail,d);
+        return;
+    }
+
+    node* nodeToinsert = new node(d);
+    nodeToinsert -> next = temp -> next;
+    temp -> next = nodeToinsert;
+
+   
+
+}
+
+//print the linked list
+void print(node* &head){
+    node* temp = head;
+
+    while(temp != NULL){
+        cout << temp -> data << " ";
+        temp = temp -> next;
+        cout << temp << " ";
+    }
+    cout << endl;
+}
+
+
+//Drive the above class and function
+int main(){
+    node* node1 = new node(10);
+    // cout << node1 -> data <<endl;
+    // cout << node1 -> next <<endl;
+
+    //initialize the node1 into head
+    node* head = node1;
+
+    node* tail = node1;
+
+    print(head);
+    
+    insertAttail(tail, 11);
+    print(head);
+
+    insertAttail(tail, 50);
+    print(head);
+
+    insertAtPosition(head,tail,4,49);
+    print(head);
+
+    cout << "Head : " << head -> data << endl;
+    cout << "Tail : " << tail -> data << endl;
+
+    return 0;
+}
